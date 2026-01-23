@@ -18,7 +18,7 @@ public class MenuService {
 
         MenuResponse menuResponse = new MenuResponse();
         menuResponse.setMenu(menu);
+        System.out.println(menuResponse.getMenu());
         return menuResponse;
-
     }
 }

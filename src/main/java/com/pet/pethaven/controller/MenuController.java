@@ -17,7 +17,7 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private MenuService menuService;
-    @GetMapping
+    @GetMapping("/getMenu")
     public ResponseEntity<List<Menu>> getMenu() {
         MenuResponse menu = menuService.buildMenu();
         return new ResponseEntity<>(menu.getMenu(), HttpStatus.OK);

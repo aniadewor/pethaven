@@ -8,6 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 public class MenuResponse {
+    List<Menu> menu;
+
     public List<Menu> getMenu() {
         return menu;
     }
@@ -15,6 +17,4 @@ public class MenuResponse {
     public void setMenu(List<Menu> menu) {
         this.menu = menu;
     }
-
-    List<Menu> menu;
 }
