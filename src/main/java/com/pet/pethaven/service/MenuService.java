@@ -13,8 +13,14 @@ import java.util.List;
 public class MenuService {
     public MenuResponse buildMenu(){
         List<Menu> menu = new ArrayList<>();
-        menu.add(new Menu("Karma dla kota","/cat/food"));
-        menu.add(new Menu("Karma dla psa", "/dog/food"));
+        List<Menu> itemsCat = new ArrayList<>();
+        itemsCat.add(new Menu("sucha", "/cat/food/dry"));
+        itemsCat.add(new Menu("mokra", "/cat/food/wet"));
+        List<Menu> itemsDog = new ArrayList<>();
+        itemsDog.add(new Menu("sucha", "/dog/food/dry"));
+        itemsDog.add(new Menu("mokra", "/dog/food/wet"));
+        menu.add(new Menu("Karma dla kota","/cat/food",itemsCat));
+        menu.add(new Menu("Karma dla psa", "/dog/food",itemsDog));
 
         MenuResponse menuResponse = new MenuResponse();
         menuResponse.setMenu(menu);

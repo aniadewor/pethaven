@@ -9,12 +9,4 @@ import java.util.List;
 @Setter
 public class MenuResponse {
     List<Menu> menu;
-
-    public List<Menu> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
-    }
 }

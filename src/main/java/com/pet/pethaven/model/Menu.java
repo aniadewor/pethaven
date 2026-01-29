@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Menu {
     private String label;
@@ -18,30 +18,6 @@ public class Menu {
     public Menu(String label, String url) {
         this.label = label;
         this.url = url;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public List<Menu> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Menu> items) {
-        this.items = items;
     }
 
 }
