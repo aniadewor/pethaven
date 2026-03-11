@@ -30,9 +30,4 @@ public class Product {
     private Integer stockQuantity;
     private TargetAnimal targetAnimal;
     List<String> tags = new ArrayList<>();
-
-
-
-
-
 }
