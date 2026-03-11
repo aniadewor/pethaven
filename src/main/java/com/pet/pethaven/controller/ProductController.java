@@ -7,17 +7,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/product/")
+@RequestMapping("/api/products")
 @RestController
 public class ProductController {
-    private ProductRepository productRepository;
     @Autowired
     private ProductService productService;
 
     @PostMapping("/addProduct")
-    public ResponseEntity<Product> addProduct(Product product) {
+    public ResponseEntity<Product> addProduct(@Validated @RequestBody Product product) {
        productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }

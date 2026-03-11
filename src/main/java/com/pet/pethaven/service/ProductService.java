@@ -11,14 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductService {
     private ProductRepository productRepository;
     public Product addProduct(Product product) {
-        Product productToAdd = new Product();
-        productToAdd.setId(product.getId());
-        productToAdd.setName(product.getName());
-        productToAdd.setBrand(product.getBrand());
-        productToAdd.setTargetAnimal(product.getTargetAnimal());
-        productToAdd.setCategory(product.getCategory());
-        productToAdd.setStockQuantity(product.getStockQuantity());
-        return productRepository.save(productToAdd);
+
+        return productRepository.save(product);
     }
 }
 
