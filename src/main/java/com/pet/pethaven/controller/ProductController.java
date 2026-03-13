@@ -27,4 +27,8 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProducts());
     }
+    @GetMapping("/getProduct")
+    public ResponseEntity<Product> getProduct(@RequestParam("id") String id) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProduct(id));
+    }
 }
