@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api/products")
 @RestController
 public class ProductController {
@@ -21,5 +23,8 @@ public class ProductController {
        productService.addProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
-
+    @GetMapping("/getProducts")
+    public ResponseEntity<List<Product>> getProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProducts());
+    }
 }
