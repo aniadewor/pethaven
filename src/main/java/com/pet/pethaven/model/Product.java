@@ -22,6 +22,7 @@ public class Product {
     @Id
     private String id;
     private String name;
+    private String description;
     private String brand;
     @Min(value = 1)
     private Integer price;
