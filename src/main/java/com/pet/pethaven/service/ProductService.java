@@ -1,11 +1,11 @@
 package com.pet.pethaven.service;
 
+import com.pet.pethaven.dto.ProductDTO;
 import com.pet.pethaven.exceptionHandler.EntityNotFoundException;
 import com.pet.pethaven.model.Product;
 import com.pet.pethaven.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,8 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductService {
     private ProductRepository productRepository;
-    public Product addProduct(Product product) {
-
+    public Product addProduct(ProductDTO dto) {
+        Product product = new Product();
+        product.setName(dto.getName());
+        product.setCategory(dto.getCategory());
+        product.setBrand(dto.getBrand());
+        product.setTargetAnimal(dto.getTargetAnimal());
+        product.setStockQuantity(dto.getStockQuantity());
+        product.setTags(dto.getTags());
+        product.setPrice(dto.getPrice());
+        product.setDescription(dto.getDescription());
         return productRepository.save(product);
     }
     public List<Product> getProducts(){

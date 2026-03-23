@@ -25,7 +25,7 @@ public class Product {
     private String description;
     private String brand;
     @Min(value = 1)
-    private Integer price;
+    private Double price;
     private String category;
     @Min(value = 1)
     private Integer stockQuantity;
