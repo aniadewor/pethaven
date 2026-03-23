@@ -1,8 +1,10 @@
 package com.pet.pethaven.controller;
 
+import com.pet.pethaven.ProductDTO;
 import com.pet.pethaven.model.Product;
 import com.pet.pethaven.repository.ProductRepository;
 import com.pet.pethaven.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/addProduct")
-    public ResponseEntity<Product> addProduct(@Validated @RequestBody Product product) {
-       productService.addProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductDTO dto) {
+       productService.addProduct(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
     @GetMapping("/getProducts")
     public ResponseEntity<List<Product>> getProducts() {

@@ -1,9 +1,9 @@
 package com.pet.pethaven.repository;
 
-import com.pet.pethaven.model.Product;
+import com.pet.pethaven.model.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface OrderRepository  extends MongoRepository<Order, String> {
 }
