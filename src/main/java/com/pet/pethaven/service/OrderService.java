@@ -1,5 +1,7 @@
 package com.pet.pethaven.service;
 
+import com.pet.pethaven.dto.OrderDTO;
+import com.pet.pethaven.dto.OrderProductDTO;
 import com.pet.pethaven.model.Order;
 import com.pet.pethaven.model.OrderProduct;
 import com.pet.pethaven.model.OrderStatus;
@@ -18,14 +20,15 @@ import java.util.List;
 public class OrderService {
     private OrderRepository orderRepository;
     private ProductRepository productRepository;
-    public Order saveOrder (Order order) {
+    public Order saveOrder (OrderDTO orderDTO) {
+        Order order = new Order();
         order.setDateCreated(LocalDate.now());
         order.setOrderStatus(OrderStatus.CREATED);
 
         List<OrderProduct> productsToSave = new ArrayList<>();
         double total = 0;
-        for (OrderProduct dto : order.getOrderProducts()) {
-            Product product = productRepository.findById(dto.getId())
+        for (OrderProductDTO dto : orderDTO.getOrderProducts()) {
+            Product product = productRepository.findById(dto.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
             OrderProduct op = new OrderProduct();
@@ -37,6 +40,8 @@ public class OrderService {
             productsToSave.add(op);
             total += (product.getPrice() * dto.getQuantity());
         }
+        order.setTotalPrice(total);
+        order.setOrderProducts(productsToSave);
         return orderRepository.save(order);
     }
 }

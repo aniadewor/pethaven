@@ -13,8 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "orderProduct")
 public class OrderProduct {
-    @Id
-    private String id;
     private Integer quantity;
     private String productId;
     private String productName;
