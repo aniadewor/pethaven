@@ -23,6 +23,6 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateCreated;
     private OrderStatus orderStatus;
-    private Integer totalPrice;
+    private Double totalPrice;
     List<OrderProduct> orderProducts;
 }
