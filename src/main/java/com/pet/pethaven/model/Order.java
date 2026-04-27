@@ -1,6 +1,7 @@
 package com.pet.pethaven.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pet.pethaven.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,5 @@ public class Order {
     private OrderStatus orderStatus;
     private Double totalPrice;
     List<OrderProduct> orderProducts;
+    private UserDTO userDTO;
 }

@@ -2,10 +2,8 @@ package com.pet.pethaven.service;
 
 import com.pet.pethaven.dto.OrderDTO;
 import com.pet.pethaven.dto.OrderProductDTO;
-import com.pet.pethaven.model.Order;
-import com.pet.pethaven.model.OrderProduct;
-import com.pet.pethaven.model.OrderStatus;
-import com.pet.pethaven.model.Product;
+import com.pet.pethaven.dto.UserDTO;
+import com.pet.pethaven.model.*;
 import com.pet.pethaven.repository.OrderRepository;
 import com.pet.pethaven.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -42,6 +40,24 @@ public class OrderService {
         }
         order.setTotalPrice(total);
         order.setOrderProducts(productsToSave);
+        order.setUserDTO(setUserDTO(orderDTO));
         return orderRepository.save(order);
+    }
+    public UserDTO setUserDTO (OrderDTO orderDTO) {
+        UserDTO userDTO = new UserDTO();
+        Address address = new Address();
+        userDTO.setEmail(orderDTO.getUserDTO().getEmail());
+        userDTO.setFirstName(orderDTO.getUserDTO().getFirstName());
+        userDTO.setLastName(orderDTO.getUserDTO().getLastName());
+        userDTO.setPhoneNumber(orderDTO.getUserDTO().getPhoneNumber());
+        userDTO.setAddress(address);
+        address.setCity(orderDTO.getUserDTO().getAddress().getCity());
+        address.setCountry(orderDTO.getUserDTO().getAddress().getCountry());
+        address.setStreet(orderDTO.getUserDTO().getAddress().getStreet());
+        address.setZipCode(orderDTO.getUserDTO().getAddress().getZipCode());
+        address.setBuildingNumber(orderDTO.getUserDTO().getAddress().getBuildingNumber());
+        address.setApartmentNumber(orderDTO.getUserDTO().getAddress().getApartmentNumber());
+        userDTO.setAddress(address);
+        return userDTO;
     }
 }
