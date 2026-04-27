@@ -15,5 +15,6 @@ import java.util.List;
 @Setter
 public class OrderDTO {
     private Double totalPrice;
-    List<OrderProductDTO> orderProducts;
+    private List<OrderProductDTO> orderProducts;
+    private UserDTO userDTO;
 }
