@@ -7,16 +7,20 @@ import com.pet.pethaven.model.User;
 import com.pet.pethaven.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.introspect.Annotated;
 
 @Service
 @AllArgsConstructor
 public class UserService {
     public UserRepository userRepository;
+    public PasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {
         validatePhoneNumber(user.getPhoneNumber());
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
          return userRepository.save(user);
     }
 
