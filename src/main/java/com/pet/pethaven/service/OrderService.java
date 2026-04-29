@@ -67,4 +67,10 @@ public class OrderService {
         }
         return orderRepository.findByUserDTOEmail(email);
     }
+    public Order getOrderById (String id) {
+        if (id == null) {
+            throw new EntityNotFoundException("id is null");
+        }
+        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("id not found"));
+    }
 }
