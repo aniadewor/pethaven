@@ -3,6 +3,7 @@ package com.pet.pethaven.service;
 import com.pet.pethaven.dto.OrderDTO;
 import com.pet.pethaven.dto.OrderProductDTO;
 import com.pet.pethaven.dto.UserDTO;
+import com.pet.pethaven.exceptionHandler.EntityNotFoundException;
 import com.pet.pethaven.model.*;
 import com.pet.pethaven.repository.OrderRepository;
 import com.pet.pethaven.repository.ProductRepository;
@@ -59,5 +60,11 @@ public class OrderService {
         address.setApartmentNumber(orderDTO.getUserDTO().getAddress().getApartmentNumber());
         userDTO.setAddress(address);
         return userDTO;
+    }
+    public List<Order> getOrdersByEmail (String email) {
+        if (email == null) {
+            throw new EntityNotFoundException("email is null");
+        }
+        return orderRepository.findByUserDTOEmail(email);
     }
 }
