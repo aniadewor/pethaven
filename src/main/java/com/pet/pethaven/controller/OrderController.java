@@ -26,4 +26,9 @@ public class OrderController {
         List<Order> orders = orderService.getOrdersByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).body(orders);
     }
+    @GetMapping("/getOrderById")
+    public ResponseEntity<Order> getOrderById(@RequestParam("id") String id){
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(order);
+    }
 }
