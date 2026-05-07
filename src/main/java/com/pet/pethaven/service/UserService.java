@@ -18,8 +18,8 @@ public class UserService {
     public PasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {
-        validatePhoneNumber(user.getPhoneNumber());
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        validatePhoneNumber(user.phoneNumber());
+        String encodedPassword = passwordEncoder.encode(user.password());
         user.setPassword(encodedPassword);
          return userRepository.save(user);
     }
@@ -44,18 +44,17 @@ public class UserService {
 
     private static @NonNull UserDTO getUserDTO(String email, User user) {
         UserDTO userDTO = new UserDTO();
-        Address address = new Address();
+        Address address = new Address(user.address().street(),
+                user.address().city(),
+                user.address().zipCode(),
+                user.address().country(),
+                user.address().buildingNumber(),
+                user.address().apartmentNumber());
         userDTO.setEmail(email);
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
+        userDTO.setFirstName(user.firstName());
+        userDTO.setLastName(user.lastName());
         userDTO.setPhoneNumber(email);
         userDTO.setAddress(address);
-        address.setCity(user.getAddress().getCity());
-        address.setCountry(user.getAddress().getCountry());
-        address.setStreet(user.getAddress().getStreet());
-        address.setZipCode(user.getAddress().getZipCode());
-        address.setBuildingNumber(user.getAddress().getBuildingNumber());
-        address.setApartmentNumber(user.getAddress().getApartmentNumber());
         userDTO.setAddress(address);
         return userDTO;
     }

@@ -1,25 +1,21 @@
 package com.pet.pethaven.model;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@AllArgsConstructor
-@Getter
-@Setter
-@NoArgsConstructor
 @Document(collection = "user")
-public class User {
-    @Id
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private Address address;
-}
+public record User(
+        @Id
+        String id,
+        String firstName,
+        String lastName,
+        String email,
+        String password,
+        String phoneNumber,
+        Address address
+) {
+        public User setPassword (String password) {
+                return new User(this.id, this.firstName, this.lastName, this.email, password, phoneNumber, address);
+                }
+        }
+

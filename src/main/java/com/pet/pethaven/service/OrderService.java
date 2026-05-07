@@ -20,9 +20,6 @@ public class OrderService {
     private OrderRepository orderRepository;
     private ProductRepository productRepository;
     public Order saveOrder (OrderDTO orderDTO) {
-        Order order = new Order();
-        order.setDateCreated(LocalDate.now());
-        order.setOrderStatus(OrderStatus.CREATED);
 
         List<OrderProduct> productsToSave = new ArrayList<>();
         double total = 0;
@@ -30,34 +27,27 @@ public class OrderService {
             Product product = productRepository.findById(dto.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            OrderProduct op = new OrderProduct();
-            op.setProductId(product.getId());
-            op.setProductName(product.getName());
-            op.setProductPrice(product.getPrice());
-            op.setQuantity(dto.getQuantity());
+            OrderProduct op = new OrderProduct(dto.getQuantity(), product.id(), product.name(), product.price());
 
             productsToSave.add(op);
-            total += (product.getPrice() * dto.getQuantity());
+            total += (product.price() * dto.getQuantity());
         }
-        order.setTotalPrice(total);
-        order.setOrderProducts(productsToSave);
-        order.setUserDTO(setUserDTO(orderDTO));
+        Order order = new Order(LocalDate.now(),OrderStatus.CREATED, total, productsToSave, setUserDTO(orderDTO));
         return orderRepository.save(order);
     }
     public UserDTO setUserDTO (OrderDTO orderDTO) {
         UserDTO userDTO = new UserDTO();
-        Address address = new Address();
+        Address address = new Address(orderDTO.getUserDTO().getAddress().city(),
+                orderDTO.getUserDTO().getAddress().country(),
+                orderDTO.getUserDTO().getAddress().street(),
+                orderDTO.getUserDTO().getAddress().zipCode(),
+                orderDTO.getUserDTO().getAddress().buildingNumber(),
+                orderDTO.getUserDTO().getAddress().apartmentNumber());
         userDTO.setEmail(orderDTO.getUserDTO().getEmail());
         userDTO.setFirstName(orderDTO.getUserDTO().getFirstName());
         userDTO.setLastName(orderDTO.getUserDTO().getLastName());
         userDTO.setPhoneNumber(orderDTO.getUserDTO().getPhoneNumber());
         userDTO.setAddress(address);
-        address.setCity(orderDTO.getUserDTO().getAddress().getCity());
-        address.setCountry(orderDTO.getUserDTO().getAddress().getCountry());
-        address.setStreet(orderDTO.getUserDTO().getAddress().getStreet());
-        address.setZipCode(orderDTO.getUserDTO().getAddress().getZipCode());
-        address.setBuildingNumber(orderDTO.getUserDTO().getAddress().getBuildingNumber());
-        address.setApartmentNumber(orderDTO.getUserDTO().getAddress().getApartmentNumber());
         userDTO.setAddress(address);
         return userDTO;
     }

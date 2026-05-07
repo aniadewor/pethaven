@@ -14,15 +14,7 @@ import java.util.List;
 public class ProductService {
     private ProductRepository productRepository;
     public Product addProduct(ProductDTO dto) {
-        Product product = new Product();
-        product.setName(dto.getName());
-        product.setCategory(dto.getCategory());
-        product.setBrand(dto.getBrand());
-        product.setTargetAnimal(dto.getTargetAnimal());
-        product.setStockQuantity(dto.getStockQuantity());
-        product.setTags(dto.getTags());
-        product.setPrice(dto.getPrice());
-        product.setDescription(dto.getDescription());
+        Product product = new Product(dto.getName(),dto.getDescription(),dto.getBrand(),dto.getPrice(),dto.getCategory(),dto.getStockQuantity(),dto.getTargetAnimal(),dto.getTags());
         return productRepository.save(product);
     }
     public List<Product> getProducts(){
