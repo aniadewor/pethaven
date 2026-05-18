@@ -8,6 +8,7 @@ import com.pet.pethaven.model.*;
 import com.pet.pethaven.repository.OrderRepository;
 import com.pet.pethaven.repository.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.cfg.defs.EmailDef;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,32 +24,30 @@ public class OrderService {
 
         List<OrderProduct> productsToSave = new ArrayList<>();
         double total = 0;
-        for (OrderProductDTO dto : orderDTO.getOrderProducts()) {
-            Product product = productRepository.findById(dto.getProductId())
+        for (OrderProductDTO dto : orderDTO.orderProducts()) {
+            Product product = productRepository.findById(dto.productId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            OrderProduct op = new OrderProduct(dto.getQuantity(), product.id(), product.name(), product.price());
+            OrderProduct op = new OrderProduct(dto.quantity(), product.id(), product.name(), product.price());
 
             productsToSave.add(op);
-            total += (product.price() * dto.getQuantity());
+            total += (product.price() * dto.quantity());
         }
         Order order = new Order(LocalDate.now(),OrderStatus.CREATED, total, productsToSave, setUserDTO(orderDTO));
         return orderRepository.save(order);
     }
     public UserDTO setUserDTO (OrderDTO orderDTO) {
-        UserDTO userDTO = new UserDTO();
-        Address address = new Address(orderDTO.getUserDTO().getAddress().city(),
-                orderDTO.getUserDTO().getAddress().country(),
-                orderDTO.getUserDTO().getAddress().street(),
-                orderDTO.getUserDTO().getAddress().zipCode(),
-                orderDTO.getUserDTO().getAddress().buildingNumber(),
-                orderDTO.getUserDTO().getAddress().apartmentNumber());
-        userDTO.setEmail(orderDTO.getUserDTO().getEmail());
-        userDTO.setFirstName(orderDTO.getUserDTO().getFirstName());
-        userDTO.setLastName(orderDTO.getUserDTO().getLastName());
-        userDTO.setPhoneNumber(orderDTO.getUserDTO().getPhoneNumber());
-        userDTO.setAddress(address);
-        userDTO.setAddress(address);
+        UserDTO userDTO = new UserDTO(orderDTO.userDTO().email(),
+                orderDTO.userDTO().firstName(),
+                orderDTO.userDTO().lastName(),
+                orderDTO.userDTO().phoneNumber(),
+                orderDTO.userDTO().address());
+        Address address = new Address(orderDTO.userDTO().address().city(),
+                orderDTO.userDTO().address().country(),
+                orderDTO.userDTO().address().street(),
+                orderDTO.userDTO().address().zipCode(),
+                orderDTO.userDTO().address().buildingNumber(),
+                orderDTO.userDTO().address().apartmentNumber());
         return userDTO;
     }
     public List<Order> getOrdersByEmail (String email) {

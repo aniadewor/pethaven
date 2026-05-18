@@ -30,11 +30,8 @@ public class MenuService {
     }
 
     private void createMenu(Menu menu1, List<Menu> itemsCat, Menu menu2, List<Menu> itemsDog, List<Menu> menuList) {
-        menu1.setUrl("/cat/food/");
-        menu1.setItems(itemsCat);
-        menu2.setUrl("/dog/food/");
-        menu2.setItems(itemsDog);
-        menu1.setLabel("Karma dla kota");
+        menu1.createMenu("Karma dla kota", "/cat/food", itemsCat);
+        menu2.createMenu("Karma dla psa",  "/dog/food", itemsDog);
         menuList.add(menu1);
         menuList.add(menu2);
         menuRepository.save(menu1);

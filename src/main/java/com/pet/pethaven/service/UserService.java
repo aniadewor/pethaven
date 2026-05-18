@@ -18,10 +18,10 @@ public class UserService {
     public PasswordEncoder passwordEncoder;
 
     public User saveUser(User user) {
-        validatePhoneNumber(user.phoneNumber());
-        String encodedPassword = passwordEncoder.encode(user.password());
+        validatePhoneNumber(user.getPhoneNumber());
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-         return userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public Boolean validatePhoneNumber(String phoneNumber) {
@@ -43,19 +43,22 @@ public class UserService {
     }
 
     private static @NonNull UserDTO getUserDTO(String email, User user) {
-        UserDTO userDTO = new UserDTO();
-        Address address = new Address(user.address().street(),
-                user.address().city(),
-                user.address().zipCode(),
-                user.address().country(),
-                user.address().buildingNumber(),
-                user.address().apartmentNumber());
-        userDTO.setEmail(email);
-        userDTO.setFirstName(user.firstName());
-        userDTO.setLastName(user.lastName());
-        userDTO.setPhoneNumber(email);
-        userDTO.setAddress(address);
-        userDTO.setAddress(address);
-        return userDTO;
+
+        Address address = new Address(
+                user.getAddress().street(),
+                user.getAddress().city(),
+                user.getAddress().zipCode(),
+                user.getAddress().country(),
+                user.getAddress().buildingNumber(),
+                user.getAddress().apartmentNumber()
+        );
+
+        return new UserDTO(
+                email,
+                user.getFirstName(),
+                user.getLastName(),
+                email,
+                address
+        );
     }
 }

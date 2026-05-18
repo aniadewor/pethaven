@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductService {
     private ProductRepository productRepository;
     public Product addProduct(ProductDTO dto) {
-        Product product = new Product(dto.getName(),dto.getDescription(),dto.getBrand(),dto.getPrice(),dto.getCategory(),dto.getStockQuantity(),dto.getTargetAnimal(),dto.getTags());
+        Product product = new Product(dto.name(),dto.description(),dto.brand(),dto.price(),dto.category(),dto.stockQuantity(),dto.targetAnimal(),dto.tags());
         return productRepository.save(product);
     }
     public List<Product> getProducts(){
