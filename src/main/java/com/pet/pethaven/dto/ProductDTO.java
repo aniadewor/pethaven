@@ -7,21 +7,18 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-public class ProductDTO {
+
+public record ProductDTO (
     @NotBlank(message = "Nazwa produktu nie może być pusta")
-    private String name;
+    String name,
     @NotBlank(message = "Marka produktu jest wymagana")
-    private String brand;
-    private String category;
-    private Double price;
-    private String description;
+     String brand,
+     String category,
+     Double price,
+     String description,
     @NotNull(message = "Ilość na stanie nie może być pusta")
     @Min(value = 1, message = "Minimalna ilość na stanie to 1")
-    private Integer stockQuantity;
-    private TargetAnimal targetAnimal;
-    private List<String> tags;
-}
+     Integer stockQuantity,
+     TargetAnimal targetAnimal,
+     List<String> tags
+){}

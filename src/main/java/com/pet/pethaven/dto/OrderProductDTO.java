@@ -5,11 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-public class OrderProductDTO {
-    private Integer quantity;
-    private String productId;
-}
+public record OrderProductDTO (
+     Integer quantity,
+   String productId
+){}

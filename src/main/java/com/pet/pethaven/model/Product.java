@@ -1,34 +1,25 @@
 package com.pet.pethaven.model;
 
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.ArrayList;
 import java.util.List;
 
-@Validated
-@AllArgsConstructor
-@Getter
-@Setter
-@NoArgsConstructor
 @Document(collection = "product")
-public class Product {
-    @Id
-    private String id;
-    private String name;
-    private String description;
-    private String brand;
-    @Min(value = 1)
-    private Double price;
-    private String category;
-    @Min(value = 1)
-    private Integer stockQuantity;
-    private TargetAnimal targetAnimal;
-    List<String> tags = new ArrayList<>();
+public record Product(
+        @Id
+        String id,
+        String name,
+        String description,
+        String brand,
+        @Min(1)
+        Double price,
+        String category,
+        @Min(1)
+        Integer stockQuantity,
+        TargetAnimal targetAnimal,
+        List<String> tags
+) { public Product (String name, String description, String brand, Double price, String category, Integer stockQuantity,TargetAnimal targetAnimal,List<String>tags){
+        this(null, name, description, brand, price, category, stockQuantity, targetAnimal, tags);
+}
 }

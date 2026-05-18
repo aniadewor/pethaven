@@ -14,12 +14,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "user")
 public class User {
-    @Id
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private Address address;
+        @Id
+        private String id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String password;
+        private String phoneNumber;
+        private Address address;
 }
