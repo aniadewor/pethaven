@@ -1,27 +1,22 @@
 package com.pet.pethaven.model;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Menu {
+        private String category;
+        private String url;
+        private List<SubcategoryMenu> subcategory;
 
-@JsonPropertyOrder({"label", "url", "items"})
-@Document(collection = "menu")
-public record Menu(
-        @Id
-        String id,
-        String label,
-        String url,
-        List<Menu> items
-) {
-        public Menu (String id, String label) {
-                this(id,label,null,null);
-        }
-        public Menu()
-        {this(null,"","",null);}
-
-        public Menu createMenu(String label, String url, List<Menu> items){
-                return new Menu(this.id, label, url, items);
+        public Menu(String category, String url) {
+                this.category = category;
+                this.url = url;
         }
 }

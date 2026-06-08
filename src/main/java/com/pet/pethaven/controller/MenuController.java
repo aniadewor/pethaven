@@ -1,6 +1,7 @@
 package com.pet.pethaven.controller;
 
 import com.pet.pethaven.model.Menu;
+import com.pet.pethaven.model.SubcategoryMenu;
 import com.pet.pethaven.response.MenuResponse;
 import com.pet.pethaven.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
